@@ -205,6 +205,32 @@ def train(config):
     trainer.save_model(config["training"]["output_dir"])
     student_tokenizer.save_pretrained(config["training"]["output_dir"])
 
+    from transformers.trainer_utils import get_last_checkpoint
+    from easydistill.extras.ploting import plot_loss
+
+    output_dir = config["training"]["output_dir"]
+    override = config["trainging"].get("override", True)
+    if not override:
+        last_pt = get_last_checkpoint(output_dir)
+        if last_pt:
+            train_result = trainer.train(resume_from_checkpoint=last_pt)
+    train_result = trainer.train()
+
+    trainer.save_model(output_dir)
+    student_tokenizer.save_pretrained(output_dir)
+
+    trainer.log_metrics("train", train_result.metrics)
+    trainer.save_metrics("train", train_result.metrics)
+    trainer.save_state()
+
+    keys = ["loss"]
+    keys += ["eval_loss", "eval_accuracy"]
+
+    plot_loss(output_dir, keys=keys)
+
+
+
+
 
 def main():
     parser = argparse.ArgumentParser()

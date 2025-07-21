@@ -5,3 +5,4 @@ tokenizers==0.21.1
 vllm==0.8.5
 openai
 jinja2
+jsonlines

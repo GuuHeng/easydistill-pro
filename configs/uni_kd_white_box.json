@@ -1,10 +1,10 @@
 {
   "job_type": "kd_white_box",
   "dataset": {
-    "instruction_path": "train.json",
-    "labeled_path": "train_labeled.json",
-    "logits_path": "./logits.json",
-    "template" : "./chat_template/chat_template_kd.jinja",
+    "instruction_path": "/share/aigc/train/easydistill_workspace/medical_17k_10000.json",
+    "labeled_path": "/share/aigc/train/easydistill_workspace/medical_17k_10000.json",
+    "logits_path": "/share/aigc/train/easydistill_workspace/medical_17k_logits.json",
+    "template" : "/share/aigc/train/easydistill/configs/chat_template/chat_template_kd.jinja",
     "seed": 42
   },
   "inference":{
@@ -15,24 +15,25 @@
     "trust_remote_code": true,
     "enforce_eager": false,
     "max_model_len": 4096,
-    "max_new_tokens": 512,
-    "top_logits_num": 10
+    "max_new_tokens": 4096,
+    "top_logits_num": 10,
+    "batch_size": 16
   },
   "distillation": {
-    "kd_ratio": 0.1,
-    "max_seq_length": 512,
+    "kd_ratio": 0.9,
+    "max_seq_length": 4096,
     "distillation_type": "forward_kld"
   },
   "models": {
-    "teacher": "teacher/Qwen/Qwen2.5-7B-Instruct/",
-    "student": "student/Qwen/Qwen2.5-0.5B-Instruct/"
+    "teacher": "/share/aigc/llms/Qwen2.5-32B-Instruct",
+    "student": "/share/aigc/llms/Qwen2.5-3B-Instruct"
   },
   "training": {
-    "output_dir": "./result/",
-    "num_train_epochs": 3,
-    "per_device_train_batch_size": 1,
+    "output_dir": "/share/aigc/train/easydistill_workspace/medical_17k/10000条",
+    "num_train_epochs": 1,
+    "per_device_train_batch_size": 4,
     "gradient_accumulation_steps": 8,
-    "max_length":512,
+    "max_length":4096,
     "save_steps": 1000,
     "logging_steps": 1,
     "learning_rate": 2e-5,

@@ -131,6 +131,8 @@ def generate_teacher_response_batch(tokenizer, llm, data_list, config, batch_siz
 
 
 def generate_teacher_logits_batch(tokenizer, llm, data_list, config, batch_size=32):
+    if config["inference"].get("batch_size"):
+        batch_size = config["inference"].get("batch_size")
     full_path = config["dataset"]["template"]
     template_dir = os.path.dirname(full_path)
     template_file = os.path.basename(full_path)

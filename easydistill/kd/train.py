@@ -209,7 +209,7 @@ def train(config):
     from easydistill.extras.ploting import plot_loss
 
     output_dir = config["training"]["output_dir"]
-    override = config["trainging"].get("override", True)
+    override = config.get("override", True)
     if not override:
         last_pt = get_last_checkpoint(output_dir)
         if last_pt:

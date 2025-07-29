@@ -1,0 +1,45 @@
+{
+  "job_type": "kd_white_box",
+  "dataset": {
+    "instruction_path": "/share/aigc/train/easydistill_workspace/medical_17k_10000.json",
+    "labeled_path": "/share/aigc/train/easydistill_workspace/medical_17k_10000.json",
+    "logits_path": "/share/aigc/train/easydistill_workspace/medical_17k_logits.json",
+    "template" : "/share/aigc/train/easydistill/configs/chat_template/chat_template_kd.jinja",
+    "seed": 42
+  },
+  "inference":{
+    "enable_chunked_prefill": true,
+    "seed": 777,
+    "gpu_memory_utilization": 0.9,
+    "temperature": 0.8,
+    "trust_remote_code": true,
+    "enforce_eager": false,
+    "max_model_len": 4096,
+    "max_new_tokens": 4096,
+    "top_logits_num": 10,
+    "batch_size": 16
+  },
+  "distillation": {
+    "kd_ratio": 0.9,
+    "max_seq_length": 4096,
+    "distillation_type": "forward_kld"
+  },
+  "models": {
+    "teacher": "/share/aigc/llms/Qwen2.5-32B-Instruct",
+    "student": "/share/aigc/llms/Qwen2.5-3B-Instruct"
+  },
+  "training": {
+    "output_dir": "/share/aigc/train/easydistill_workspace/medical_17k/10000条",
+    "num_train_epochs": 1,
+    "per_device_train_batch_size": 4,
+    "gradient_accumulation_steps": 8,
+    "max_length":4096,
+    "save_steps": 1000,
+    "logging_steps": 1,
+    "learning_rate": 2e-5,
+    "weight_decay": 0.05,
+    "warmup_ratio": 0.1,
+    "lr_scheduler_type": "cosine",
+  },
+  "override": true
+}

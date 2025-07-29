@@ -19,7 +19,7 @@ from typing import Any
 
 from transformers.trainer import TRAINER_STATE_NAME
 
-from packages import is_matplotlib_available
+from .packages import is_matplotlib_available
 
 
 if is_matplotlib_available():

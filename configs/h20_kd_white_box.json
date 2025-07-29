@@ -3,7 +3,7 @@
   "dataset": {
     "instruction_path": "/share/aigc/train/easydistill_workspace/实体抽取验证集1.json",
     "labeled_path": "/share/aigc/train/easydistill_workspace/实体抽取验证集1.json",
-    "logits_path": "/share/aigc/train/easydistill_workspace/logits.json",
+    "logits_path": "/share/aigc/train/easydistill_workspace/实体抽取验证集1-logits.json",
     "template" : "/share/aigc/train/easydistill/configs/chat_template/chat_template_kd.jinja",
     "seed": 42
   },

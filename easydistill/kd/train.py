@@ -201,9 +201,9 @@ def train(config):
         logging.error(f"Training job terminated: {e}")
         return
         
-    trainer.train()
-    trainer.save_model(config["training"]["output_dir"])
-    student_tokenizer.save_pretrained(config["training"]["output_dir"])
+    # trainer.train()
+    # trainer.save_model(config["training"]["output_dir"])
+    # student_tokenizer.save_pretrained(config["training"]["output_dir"])
 
     from transformers.trainer_utils import get_last_checkpoint
     from easydistill.extras.ploting import plot_loss

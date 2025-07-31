@@ -214,7 +214,11 @@ def train(config):
         last_pt = get_last_checkpoint(output_dir)
         if last_pt:
             train_result = trainer.train(resume_from_checkpoint=last_pt)
-    train_result = trainer.train()
+        else:
+            train_result = trainer.train()
+    else:
+        train_result = trainer.train()
+
 
     trainer.save_model(output_dir)
     student_tokenizer.save_pretrained(output_dir)

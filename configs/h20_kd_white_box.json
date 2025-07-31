@@ -3,7 +3,7 @@
   "dataset": {
     "instruction_path": "/share/aigc/train/easydistill_workspace/实体抽取/实体抽取_merged.json",
     "labeled_path": "/share/aigc/train/easydistill_workspace/实体抽取/实体抽取_merged.json",
-    "logits_path": "/share/aigc/train/easydistill_workspace/实体抽取_merged-logits.json",
+    "logits_path": "/share/aigc/train/easydistill_workspace/实体抽取/实体抽取_merged-logits.json",
     "template" : "/share/aigc/train/easydistill/configs/chat_template/chat_template_kd.jinja",
     "seed": 42
   },
@@ -29,7 +29,7 @@
     "student": "/share/aigc/llms/症状提取/Qwen3-1.7B-实体抽取"
   },
   "training": {
-    "output_dir": "/share/aigc/train/easydistill_workspace/实体抽取/output",
+    "output_dir": "/share/aigc/train/easydistill_workspace/实体抽取/output/实体抽取_merged",
     "num_train_epochs": 2,
     "per_device_train_batch_size": 4,
     "gradient_accumulation_steps": 8,

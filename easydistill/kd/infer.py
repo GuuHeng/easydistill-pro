@@ -20,11 +20,12 @@ import torch
 import logging
 import os
 from jinja2 import Environment, FileSystemLoader
-from transformers import AutoModelForCausalLM, AutoTokenizer
+# from transformers import AutoModelForCausalLM, AutoTokenizer
 from vllm import LLM, SamplingParams
 from tqdm import tqdm
 from openai import OpenAI
 import math
+from modelscope import AutoModelForCausalLM, AutoTokenizer
 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -149,6 +150,20 @@ def generate_teacher_logits_batch(tokenizer, llm, data_list, config, batch_size=
                 add_generation_prompt=True,
                 add_output=False
             )
+
+            print(f"***********\n{full_text}\n*********")
+
+            # debug
+            text = tokenizer.apply_chat_template(
+                message=message,
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=False
+            )
+            print(f"---------\ntext is:", text)
+            print("----------")
+            break
+
             new_batch.append(full_text)
         
         outputs = llm.generate(

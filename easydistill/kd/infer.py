@@ -155,7 +155,7 @@ def generate_teacher_logits_batch(tokenizer, llm, data_list, config, batch_size=
 
             # debug
             text = tokenizer.apply_chat_template(
-                message=message,
+                [message],
                 tokenize=False,
                 add_generation_prompt=True,
                 enable_thinking=False

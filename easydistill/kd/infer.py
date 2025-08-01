@@ -158,10 +158,10 @@ def generate_teacher_logits_batch(tokenizer, llm, data_list, config, batch_size=
                 [message],
                 tokenize=False,
                 add_generation_prompt=True,
-                enable_thinking=False
+                enable_thinking=False,
+                chat_template=template
             )
-            print(f"---------\ntext is:", text)
-            print("----------")
+            print(f"----------\n{full_text}\n---------")
             break
 
             new_batch.append(full_text)

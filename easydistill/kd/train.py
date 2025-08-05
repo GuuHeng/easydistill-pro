@@ -134,7 +134,25 @@ class DistillSFTTrainer(SFTTrainer):
             total_loss = lm_loss
         return (total_loss, outputs) if return_outputs else total_loss
 
-
+def formatting_func(examples):
+    env = Environment(loader=BaseLoader())
+    try:
+        message = {"content": examples["instruction"], "output": examples["output"]}
+        full_text = template.render(
+            message=message,
+            add_generation_prompt=False,
+            add_output=True
+        )
+        # full_text = student_tokenizer.apply_chat_template(
+        #     [message],
+        #     tokenize=False,
+        #     add_generation_prompt=True,
+        #     enable_thinking=False
+        # )
+        return full_text
+    except Exception as e:
+        logging.warning(f"Error processing sample: {str(e)}")
+        return ""
 def train(config):
     dataset = load_dataset("json", data_files=config["dataset"]["labeled_path"])
     
@@ -146,26 +164,6 @@ def train(config):
         config["models"]["student"],
         trust_remote_code=True
     )
-
-    def formatting_func(examples):
-        env = Environment(loader=BaseLoader())
-        try:
-            message = {"content": examples["instruction"], "output": examples["output"]}
-            # full_text = template.render(
-            #     message=message,
-            #     add_generation_prompt=False,
-            #     add_output=True
-            # )
-            full_text = student_tokenizer.apply_chat_template(
-                [message],
-                tokenize=False,
-                add_generation_prompt=True,
-                enable_thinking=False
-            )
-            return full_text
-        except Exception as e:
-            logging.warning(f"Error processing sample: {str(e)}")
-            return ""
 
     global template
     full_path = config["dataset"]["template"]

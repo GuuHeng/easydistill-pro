@@ -145,22 +145,22 @@ def generate_teacher_logits_batch(tokenizer, llm, data_list, config, batch_size=
         new_batch = []
         for sample in batch:
             message={"role": "user", "content": sample}
-            # full_text = template.render(
-            #     message=message,
-            #     add_generation_prompt=True,
-            #     add_output=False
-            # )
+            full_text = template.render(
+                message=message,
+                add_generation_prompt=True,
+                add_output=False
+            )
 
             # print(f"***********\n{full_text}\n*********")
 
             # debug
-            full_text = tokenizer.apply_chat_template(
-                [message],
-                tokenize=False,
-                add_generation_prompt=True,
-                enable_thinking=False
-            )
-            print(f"tokenizer.apply_chat_template begin\n----------\n{full_text}\n---------\ntokenizer.apply_chat_template_end")
+            # full_text = tokenizer.apply_chat_template(
+            #     [message],
+            #     tokenize=False,
+            #     add_generation_prompt=True,
+            #     enable_thinking=False
+            # )
+            # print(f"tokenizer.apply_chat_template begin\n----------\n{full_text}\n---------\ntokenizer.apply_chat_template_end")
             # break
 
             new_batch.append(full_text)

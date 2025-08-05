@@ -160,7 +160,7 @@ def generate_teacher_logits_batch(tokenizer, llm, data_list, config, batch_size=
                 add_generation_prompt=True,
                 enable_thinking=False
             )
-            # print(f"----------\n{full_text}\n---------")
+            print(f"tokenizer.apply_chat_template begin\n----------\n{full_text}\n---------\ntokenizer.apply_chat_template_end")
             # break
 
             new_batch.append(full_text)
@@ -169,7 +169,8 @@ def generate_teacher_logits_batch(tokenizer, llm, data_list, config, batch_size=
             new_batch,  # Pass the raw text directly
             SamplingParams(
                 n=1,
-                top_k=1,
+                top_k=config["inference"]["top_k"],
+                top_p=config["inference"]["top_p"],
                 temperature=config["inference"]["temperature"],
                 seed=config["inference"]["seed"],
                 skip_special_tokens=False,
@@ -180,6 +181,8 @@ def generate_teacher_logits_batch(tokenizer, llm, data_list, config, batch_size=
         )
         # Extract the generated logits
         responses = [output.outputs[0].text for output in outputs]
+        print(
+            f"responses_begin\n----------\n{responses}\n---------\nresponses_end")
         logits=[output.outputs[0].logprobs for output in outputs]
         for logit in logits:
             for pos in logit:

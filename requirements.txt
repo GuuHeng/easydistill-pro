@@ -6,3 +6,4 @@ vllm==0.8.5
 openai
 jinja2
 jsonlines
+matplotlib

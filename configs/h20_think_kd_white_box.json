@@ -1,0 +1,47 @@
+{
+  "job_type": "kd_white_box",
+  "dataset": {
+    "instruction_path": "/share/aigc/train/easydistill_workspace/实体抽取/实体抽取_merged.json",
+    "labeled_path": "/share/aigc/train/easydistill_workspace/实体抽取/实体抽取_merged.json",
+    "logits_path": "/share/aigc/train/easydistill_workspace/实体抽取/实体抽取_merged-logits.json",
+    "template" : "/share/aigc/train/easydistill/configs/chat_template/chat_template_kd.jinja",
+    "seed": 42
+  },
+  "inference":{
+    "enable_chunked_prefill": true,
+    "seed": 777,
+    "gpu_memory_utilization": 0.9,
+    "temperature": 0.7,
+    "top_k": 20,
+    "top_p": 0.8,
+    "trust_remote_code": true,
+    "enforce_eager": false,
+    "max_model_len": 4096,
+    "max_new_tokens": 512,
+    "top_logits_num": 20,
+    "batch_size": 16
+  },
+  "distillation": {
+    "kd_ratio": 0.5,
+    "max_seq_length": 4096,
+    "distillation_type": "forward_kld"
+  },
+  "models": {
+    "teacher": "/share/aigc/llms/症状提取/Qwen3-8B-4",
+    "student": "/share/aigc/llms/症状提取/Qwen3-1.7B-实体抽取"
+  },
+  "training": {
+    "output_dir": "/share/aigc/train/easydistill_workspace/实体抽取/output/实体抽取_round2-stage1-sft-distill-output-dir",
+    "num_train_epochs": 2,
+    "per_device_train_batch_size": 8,
+    "gradient_accumulation_steps": 2,
+    "max_length":4096,
+    "save_steps": 1000,
+    "logging_steps": 1,
+    "learning_rate": 2e-5,
+    "weight_decay": 0.05,
+    "warmup_ratio": 0.1,
+    "lr_scheduler_type": "cosine"
+  },
+  "override": true
+}

@@ -1,0 +1,48 @@
+{
+  "job_type": "kd_white_box",
+  "dataset": {
+    "instruction_path": "/share/aigc/train/easydistill_workspace/医疗安全与伦理/MoE_V10_医疗安全与伦理_SFT-debug.json",
+    "labeled_path": "/share/aigc/train/easydistill_workspace/医疗安全与伦理/MoE_V10_医疗安全与伦理_SFT-debug.json",
+    "logits_path": "/share/aigc/train/easydistill_workspace/医疗安全与伦理/MoE_V10_医疗安全与伦理_SFT-debug-logits.json",
+    "template" : "/share/aigc/train/easydistill/configs/chat_template/chat_template_kd.jinja",
+    "seed": 42
+  },
+  "inference":{
+    "enable_chunked_prefill": true,
+    "seed": 777,
+    "gpu_memory_utilization": 0.9,
+    "temperature": 0.7,
+    "top_k": 20,
+    "top_p": 0.8,
+    "min_p": 0,
+    "trust_remote_code": true,
+    "enforce_eager": false,
+    "max_model_len": 2048,
+    "max_new_tokens": 512,
+    "top_logits_num": 20,
+    "batch_size": 2
+  },
+  "distillation": {
+    "kd_ratio": 0.5,
+    "max_seq_length": 2048,
+    "distillation_type": "forward_kld"
+  },
+  "models": {
+    "teacher": "/share/aigc/llms/32b-医疗安全与伦理-stage1-sft-4epochs",
+    "student": "/share/aigc/llms/Qwen3-1.7B"
+  },
+  "training": {
+    "output_dir": "/share/aigc/train/easydistill_workspace/实体抽取/output/实体抽取_round2-stage1-sft-distill-nothink-output-dir",
+    "num_train_epochs": 3,
+    "per_device_train_batch_size": 8,
+    "gradient_accumulation_steps": 1,
+    "max_length":2048,
+    "save_steps": 100,
+    "logging_steps": 1,
+    "learning_rate": 2e-5,
+    "weight_decay": 0.05,
+    "warmup_ratio": 0.1,
+    "lr_scheduler_type": "cosine"
+  },
+  "override": true
+}
